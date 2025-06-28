@@ -4,11 +4,15 @@ import { assets, BagIcon, CartIcon, HomeIcon, BoxIcon} from "@/assets/assets";
 import Link from "next/link"
 import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
-import { useClerk, UserButton } from "@clerk/nextjs";
+import { useUser, useClerk, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
 
-  const { isSeller, router, user } = useAppContext();
+  // const { isSeller, router, user } = useAppContext();
+  // const { openSignIn } = useClerk();
+
+  const { isSeller, router } = useAppContext();
+  const { isLoaded, isSignedIn } = useUser();
   const { openSignIn } = useClerk();
 
   return (
@@ -39,7 +43,7 @@ const Navbar = () => {
 
       <ul className="hidden md:flex items-center gap-4 ">
         <Image className="w-4 h-4" src={assets.search_icon} alt="search icon" />
-        {user ?
+        {isSignedIn ?
         <> 
           <Link href="/cart">
             <div className="cursor-pointer">
@@ -68,8 +72,8 @@ const Navbar = () => {
       </ul>
 
       <div className="flex items-center md:hidden gap-3">
-        {isSeller && <button onClick={() => router.push('/seller')} className="text-xs border px-4 py-1.5 rounded-full">Seller Dashboard</button>}
-        {user ?
+        {isSignedIn && <button onClick={() => router.push('/seller')} className="text-xs border px-4 py-1.5 rounded-full">Seller Dashboard</button>}
+        {isSignedIn ?
         <> 
           <UserButton>
             <UserButton.MenuItems>
