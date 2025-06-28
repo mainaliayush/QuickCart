@@ -1,5 +1,5 @@
 import { cache } from "react";
-import mongoose from mongoose;
+import mongoose from "mongoose";
 
 let cached = global.mongoose
 
