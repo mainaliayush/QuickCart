@@ -17,7 +17,7 @@ async function connectDB() {
             bufferCommands: false 
         }
 
-        cached.promise = mongoose.conncet(`${process.env.MONGODB_URI}/Vanguard-ID-Systems`, opts).then( mongoose => {
+        cached.promise = mongoose.connect(`${process.env.MONGODB_URI}/Vanguard-ID-Systems`, opts).then( mongoose => {
             return mongoose
         })
     }
