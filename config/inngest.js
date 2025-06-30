@@ -1,6 +1,8 @@
 import { Inngest } from "inngest";
-import connectDB from "./db";
+import connectDB from "@/config/db";
 import User from "@/models/User";
+import Order from "@/models/Order";
+
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "vanguard-systems-next" });
@@ -44,7 +46,7 @@ export const syncUserUpdation = inngest.createFunction(
 
 )
 
-//Inngest Function to delete user data in database
+// Inngest Function to delete user data in database
 export const syncUserDeletion = inngest.createFunction(
     {
         id: 'delete-user-with-clerk'
@@ -57,4 +59,32 @@ export const syncUserDeletion = inngest.createFunction(
         await User.findByIdAndDelete(id)
     }
 
+)
+
+// Inngest Function to create user's order in database
+export const createUserOrder = inngest.createFunction(
+    {
+        id:'create-user-order',
+        batchEvents: {
+            maxSize: 25,
+            timeout: '5s'
+        }
+    },
+    {event: 'order/created'},
+    async ({events}) => {
+        const orders = events.map((event)=> {
+            return{
+                userId: eventevent.data.userId,
+                items: eventevent.data.items,
+                amount: eventevent.data.amount,
+                address: eventevent.data.address,
+                date: eventevent.data.date,
+            }
+        })
+
+        await connectDB()
+        await Order.insertMany(orders)
+
+        return { success: true, processed: orders.length}
+    }
 )
