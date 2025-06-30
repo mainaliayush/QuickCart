@@ -19,7 +19,7 @@ export async function POST(request) {
         // calculate amount using items
         const amount = await items.reduce(async (acc, item) => {
             const product = await Product.findById(item.product);
-            return acc + product.offerPrice * item.quantity;
+            return await acc + product.offerPrice * item.quantity;
         }, 0)
 
         await inngest.send({
@@ -38,7 +38,7 @@ export async function POST(request) {
         user.cartItems = {}
         await user.save()
 
-        return NextResponse.json({ success: true, message: 'Order placed'}, newProduct)
+        return NextResponse.json({ success: true, message: 'Order placed'})
 
     } catch (error) {
         return NextResponse.json({ success: false, message: error.message })
