@@ -9,6 +9,7 @@ const OrderSummary = () => {
   const { currency, router, getCartCount, getCartAmount, getToken, user, cartItems, setCartItems } = useAppContext()
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [userAddresses, setUserAddresses] = useState([]);
 
@@ -37,40 +38,73 @@ const OrderSummary = () => {
     setIsDropdownOpen(false);
   };
 
-  const createOrder = async () => {
+  // const createOrder = async () => {
+  //   try {
+  //     if (!selectedAddress) {
+  //       return toast.error('Please select an address')
+  //     }
+
+  //     let cartItemsArray = Object.keys(cartItems).map((key)=> ({ product:key, quantity: cartItems[key]}))
+  //     cartItemsArray = cartItemsArray.filter(item => item.quantity > 0)
+
+  //     if (cartItemsArray.length === 0){
+  //       return toast.error('Cart is empty')
+  //     }
+
+  //     const token = await getToken()
+  //     const { data } = await axios.post('/api/order/create', { 
+  //       address: selectedAddress._id,
+  //       items: cartItemsArray 
+  //     }, { 
+  //       headers:{ Authorization: `Bearer ${token}` 
+  //     }})
+
+  //     if (data.success){
+  //       toast.success(data.message)
+  //       setCartItems({})
+
+  //       router.push('/order-placed')
+  //     } else {
+  //       toast.error(data.message)
+  //     }
+
+  //   } catch (error) {
+  //     toast.error(error.message)
+  //   }
+  // }
+
+  const handleCheckout = async () => {
     try {
-      if (!selectedAddress) {
-        return toast.error('Please select an address')
+      setLoading(true);
+      if (!selectedAddress) return toast.error("Please select an address");
+  
+      const cartItemsArray = Object.keys(cartItems).map((key) => ({
+        productId: key,
+        quantity: cartItems[key],
+      })).filter(item => item.quantity > 0);
+  
+      if (cartItemsArray.length === 0) return toast.error("Cart is empty");
+
+  
+      const { data } = await axios.post("/api/payment/checkout", {
+        items: cartItemsArray,
+        addressId: selectedAddress._id,
+        // email: user.email,
+        email: 'mainaliayush070@gmail.com'
+      });
+  
+      if (data.url) {
+        window.location.href = data.url;
       }
-
-      let cartItemsArray = Object.keys(cartItems).map((key)=> ({ product:key, quantity: cartItems[key]}))
-      cartItemsArray = cartItemsArray.filter(item => item.quantity > 0)
-
-      if (cartItemsArray.length === 0){
-        return toast.error('Cart is empty')
-      }
-
-      const token = await getToken()
-      const { data } = await axios.post('/api/order/create', { 
-        address: selectedAddress._id,
-        items: cartItemsArray 
-      }, { 
-        headers:{ Authorization: `Bearer ${token}` 
-      }})
-
-      if (data.success){
-        toast.success(data.message)
-        setCartItems({})
-
-        router.push('/order-placed')
-      } else {
-        toast.error(data.message)
-      }
-
+  
     } catch (error) {
-      toast.error(error.message)
+      toast.error("Failed to start checkout");
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
+  
 
   useEffect(() => {
     if (user) {
@@ -166,9 +200,14 @@ const OrderSummary = () => {
         </div>
       </div>
 
-      <button onClick={createOrder} className="w-full bg-blue-600 text-white py-3 mt-5 hover:bg-blue-700 rounded-lg">
-        Place Order
+      <button
+        onClick={handleCheckout}
+        disabled={loading}
+        className={`w-full py-3 mt-5 rounded-lg text-white ${loading ? 'bg-blue-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+      >
+        {loading ? 'Processing...' : 'Begin Checkout'}
       </button>
+
     </div>
   );
 };

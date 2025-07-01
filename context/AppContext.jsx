@@ -61,8 +61,9 @@ export const AppContextProvider = (props) => {
     }
 
     const addToCart = async (itemId) => {
-
         let cartData = structuredClone(cartItems);
+        const isNewItem = !cartData[itemId];
+
         if (cartData[itemId]) {
             cartData[itemId] += 1;
         }
@@ -75,7 +76,11 @@ export const AppContextProvider = (props) => {
             try {
                 const token = await getToken()
                 await axios.post('/api/cart/update', { cartData }, {headers: {Authorization: `Bearer ${token}`}})
-                toast.success("Item added to cart")
+                
+                if (isNewItem) {
+                    toast.success("Item added to cart");
+                }
+
             } catch (error) {
                 toast.error(error.message)
             }
