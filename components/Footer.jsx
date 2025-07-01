@@ -1,53 +1,45 @@
 import React from "react";
-import { assets } from "@/assets/assets";
 import Image from "next/image";
+import companyLogo from "@/assets/company_logo.png";
 
 const Footer = () => {
   return (
-    <footer>
-      <div className="flex flex-col md:flex-row items-start justify-center px-6 md:px-16 lg:px-32 gap-10 py-14 border-b border-gray-500/30 text-gray-500">
-        <div className="w-4/5">
-          <Image className="w-28 md:w-32" src={assets.logo} alt="logo" />
-          <p className="mt-6 text-sm">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+    <footer className="bg-[#F9FAFB] text-gray-600 border-t border-gray-300 mt-20">
+      <div className="flex flex-col md:flex-row items-start justify-between gap-12 px-6 md:px-16 lg:px-32 py-14 border-b border-gray-300">
+        {/* Logo + About */}
+        <div className="w-full md:w-1/3">
+          <Image className="w-28 md:w-40" src={companyLogo} alt="Vanguard ID Systems Logo" />
+          <p className="mt-6 text-sm leading-relaxed text-gray-500 max-w-xs">
+            Vanguard ID Systems is a leader in RFID, barcode, and secure card solutions. Trusted by businesses and institutions for reliable identification and tracking products.
           </p>
         </div>
 
-        <div className="w-1/2 flex items-center justify-start md:justify-center">
-          <div>
-            <h2 className="font-medium text-gray-900 mb-5">Company</h2>
-            <ul className="text-sm space-y-2">
-              <li>
-                <a className="hover:underline transition" href="#">Home</a>
-              </li>
-              <li>
-                <a className="hover:underline transition" href="#">About us</a>
-              </li>
-              <li>
-                <a className="hover:underline transition" href="#">Contact us</a>
-              </li>
-              <li>
-                <a className="hover:underline transition" href="#">Privacy policy</a>
-              </li>
-            </ul>
-          </div>
+        {/* Navigation */}
+        <div className="w-full md:w-1/4">
+          <h2 className="font-medium text-gray-900 mb-4">Company</h2>
+          <ul className="text-sm space-y-2">
+            <li><a className="hover:text-blue-600 transition" href="#">Home</a></li>
+            <li><a className="hover:text-blue-600 transition" href="#">About Us</a></li>
+            <li><a className="hover:text-blue-600 transition" href="#">Contact</a></li>
+            <li><a className="hover:text-blue-600 transition" href="#">Privacy Policy</a></li>
+            <li><a className="hover:text-blue-600 transition" href="#">Careers</a></li>
+          </ul>
         </div>
 
-        <div className="w-1/2 flex items-start justify-start md:justify-center">
-          <div>
-            <h2 className="font-medium text-gray-900 mb-5">Get in touch</h2>
-            <div className="text-sm space-y-2">
-              <p>+1-234-567-890</p>
-              <p>contact@greatstack.dev</p>
-            </div>
+        {/* Contact Info */}
+        <div className="w-full md:w-1/4">
+          <h2 className="font-medium text-gray-900 mb-4">Get in Touch</h2>
+          <div className="text-sm space-y-2 text-gray-500">
+            <p>+1 (610) 738-1340</p>
+            <p>info@vanguardid.com</p>
+            <p>275 Gibraltar Rd, Horsham, PA 19044</p>
           </div>
         </div>
       </div>
-      <p className="py-4 text-center text-xs md:text-sm">
-        Copyright 2025 © GreatStack.dev All Right Reserved.
+
+      {/* Footer Bottom */}
+      <p className="text-center text-xs text-gray-400 py-4 px-6">
+        © {new Date().getFullYear()} Vanguard ID Systems. All rights reserved.
       </p>
     </footer>
   );

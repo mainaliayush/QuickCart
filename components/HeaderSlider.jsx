@@ -3,32 +3,60 @@ import { assets } from "@/assets/assets";
 import Image from "next/image";
 
 const HeaderSlider = () => {
+  // const sliderData = [
+  //   {
+  //     id: 1,
+  //     title: "Experience Pure Sound - Your Perfect Headphones Awaits!",
+  //     offer: "Limited Time Offer 30% Off",
+  //     buttonText1: "Buy now",
+  //     buttonText2: "Find more",
+  //     imgSrc: assets.header_headphone_image,
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Next-Level Gaming Starts Here - Discover PlayStation 5 Today!",
+  //     offer: "Hurry up only few lefts!",
+  //     buttonText1: "Shop Now",
+  //     buttonText2: "Explore Deals",
+  //     imgSrc: assets.header_playstation_image,
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
+  //     offer: "Exclusive Deal 40% Off",
+  //     buttonText1: "Order Now",
+  //     buttonText2: "Learn More",
+  //     imgSrc: assets.header_macbook_image,
+  //   },
+  // ];
+
   const sliderData = [
     {
       id: 1,
-      title: "Experience Pure Sound - Your Perfect Headphones Awaits!",
-      offer: "Limited Time Offer 30% Off",
-      buttonText1: "Buy now",
-      buttonText2: "Find more",
-      imgSrc: assets.header_headphone_image,
+      title: "Custom RFID & Smart Cards — Secure Your Business",
+      offer: "Fast turnaround, bulk pricing available",
+      buttonText1: "Browse RFID Cards",
+      buttonText2: "Request a Quote",
+      imgSrc: assets.rfid_smartcard, 
     },
     {
       id: 2,
-      title: "Next-Level Gaming Starts Here - Discover PlayStation 5 Today!",
-      offer: "Hurry up only few lefts!",
-      buttonText1: "Shop Now",
-      buttonText2: "Explore Deals",
-      imgSrc: assets.header_playstation_image,
+      title: "Barcode Key Tags & Combo Cards for Loyalty Programs",
+      offer: "Trusted by top retailers & gyms",
+      buttonText1: "Explore Key Tags",
+      buttonText2: "View Use Cases",
+      imgSrc: assets.rfid_keytag,
     },
     {
       id: 3,
-      title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
-      offer: "Exclusive Deal 40% Off",
-      buttonText1: "Order Now",
-      buttonText2: "Learn More",
-      imgSrc: assets.header_macbook_image,
+      title: "Wristbands for Events & Access Control",
+      offer: "RFID + Barcode Wristbands for Reliable Entry",
+      buttonText1: "Shop Wristbands",
+      buttonText2: "See Custom Options",
+      imgSrc: assets.rfid_wristband,
     },
   ];
+  
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -54,26 +82,30 @@ const HeaderSlider = () => {
         {sliderData.map((slide, index) => (
           <div
             key={slide.id}
-            className="flex flex-col-reverse md:flex-row items-center justify-between bg-[#E6E9F2] py-8 md:px-14 px-5 mt-6 rounded-xl min-w-full"
+            className="flex flex-col-reverse md:flex-row items-center justify-between bg-white border shadow-md py-10 md:px-16 px-6 mt-8 rounded-lg min-w-full"
           >
-            <div className="md:pl-8 mt-10 md:mt-0">
-              <p className="md:text-base text-orange-600 pb-1">{slide.offer}</p>
-              <h1 className="max-w-lg md:text-[40px] md:leading-[48px] text-2xl font-semibold">
+            <div className="md:pr-10 mt-10 md:mt-0 flex-1">
+              <p className="text-md text-gray-500 font-medium mb-1">{slide.offer}</p>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium text-gray-800 max-w-xl">
                 {slide.title}
               </h1>
-              <div className="flex items-center mt-4 md:mt-6 ">
-                <button className="md:px-10 px-7 md:py-2.5 py-2 bg-orange-600 rounded-full text-white font-medium">
+              <div className="flex items-center gap-4 mt-6">
+                <button className="px-6 py-2 bg-blue-600 text-white font-medium rounded-md shadow hover:bg-blue-800 transition">
                   {slide.buttonText1}
                 </button>
-                <button className="group flex items-center gap-2 px-6 py-2.5 font-medium">
+                <button className="group flex items-center gap-2 px-4 py-2 text- font-medium hover:underline">
                   {slide.buttonText2}
-                  <Image className="group-hover:translate-x-1 transition" src={assets.arrow_icon} alt="arrow_icon" />
+                  <Image
+                    className="group-hover:translate-x-1 transition-transform"
+                    src={assets.arrow_icon}
+                    alt="arrow_icon"
+                  />
                 </button>
               </div>
             </div>
-            <div className="flex items-center flex-1 justify-center">
+            <div className="flex items-center justify-center flex-1">
               <Image
-                className="md:w-72 w-48"
+                className="md:w-80 w-56 object-contain"
                 src={slide.imgSrc}
                 alt={`Slide ${index + 1}`}
               />
@@ -81,20 +113,21 @@ const HeaderSlider = () => {
           </div>
         ))}
       </div>
-
-      <div className="flex items-center justify-center gap-2 mt-8">
+  
+      <div className="flex items-center justify-center gap-2 mt-6">
         {sliderData.map((_, index) => (
           <div
             key={index}
             onClick={() => handleSlideChange(index)}
-            className={`h-2 w-2 rounded-full cursor-pointer ${
-              currentSlide === index ? "bg-orange-600" : "bg-gray-500/30"
+            className={`h-2.5 w-2.5 rounded-full cursor-pointer transition-colors duration-600 ${
+              currentSlide === index ? "bg-blue-600" : "bg-gray-300"
             }`}
           ></div>
         ))}
       </div>
     </div>
   );
+  
 };
 
 export default HeaderSlider;

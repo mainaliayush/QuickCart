@@ -14,10 +14,10 @@ const Home = () => {
       <Navbar/>
       <div className="px-6 md:px-16 lg:px-32">
         <HeaderSlider />
-        <HomeProducts />
+        {/* <HomeProducts /> */}
         <FeaturedProduct />
-        <Banner />
-        <NewsLetter />
+        {/* <Banner /> */}
+        {/* <NewsLetter /> */}
       </div>
       <Footer />
     </>

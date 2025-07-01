@@ -1,5 +1,4 @@
 'use client'
-import { productsDummyData } from "@/assets/assets";
 import { useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -85,16 +84,32 @@ export const AppContextProvider = (props) => {
     }
 
     const updateCartQuantity = async (itemId, quantity) => {
-
         let cartData = structuredClone(cartItems);
+      
         if (quantity === 0) {
-            delete cartData[itemId];
+          delete cartData[itemId];
         } else {
-            cartData[itemId] = quantity;
+          cartData[itemId] = quantity;
         }
-        setCartItems(cartData)
-
-    }
+      
+        setCartItems(cartData);
+      
+        if (user) {
+          try {
+            const token = await getToken();
+            await axios.post(
+              '/api/cart/update',
+              { cartData },
+              { headers: { Authorization: `Bearer ${token}` } }
+            );
+            // toast.success("Cart updated");
+          } catch (error) {
+            toast.error("Failed to update cart");
+            console.error(error.response?.data || error.message);
+          }
+        }
+      };
+      
 
     const getCartCount = () => {
         let totalCount = 0;
@@ -110,7 +125,7 @@ export const AppContextProvider = (props) => {
         let totalAmount = 0;
         for (const items in cartItems) {
             let itemInfo = products.find((product) => product._id === items);
-            if (cartItems[items] > 0) {
+            if (itemInfo && cartItems[items] > 0) {
                 totalAmount += itemInfo.offerPrice * cartItems[items];
             }
         }

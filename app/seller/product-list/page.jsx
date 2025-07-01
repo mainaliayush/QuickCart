@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 const ProductList = () => {
 
-  const { router, getToken, user } = useAppContext();
+  const { router, getToken, user } = useAppContext()
 
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -44,7 +44,7 @@ const ProductList = () => {
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">
       {loading ? <Loading /> : <div className="w-full md:p-10 p-4">
-        <h2 className="pb-4 text-lg font-medium">All Product</h2>
+        {/* <h2 className="pb-4 text-lg font-medium">All Product</h2> */}
         <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md bg-white border border-gray-500/20">
           <table className=" table-fixed w-full overflow-hidden">
             <thead className="text-gray-900 text-sm text-left">
@@ -54,7 +54,8 @@ const ProductList = () => {
                 <th className="px-4 py-3 font-medium truncate">
                   Price
                 </th>
-                <th className="px-4 py-3 font-medium truncate max-sm:hidden">Action</th>
+                <th className="px-4 py-3 font-medium truncate max-sm:hidden">Visit</th>
+                <th className="px-4 py-3 font-medium truncate max-sm:hidden">Update/Delete</th>
               </tr>
             </thead>
             <tbody className="text-sm text-gray-500">
@@ -77,8 +78,8 @@ const ProductList = () => {
                   <td className="px-4 py-3 max-sm:hidden">{product.category}</td>
                   <td className="px-4 py-3">${product.offerPrice}</td>
                   <td className="px-4 py-3 max-sm:hidden">
-                    <button onClick={() => router.push(`/product/${product._id}`)} className="flex items-center gap-1 px-1.5 md:px-3.5 py-2 bg-orange-600 text-white rounded-md">
-                      <span className="hidden md:block">Visit</span>
+                    <button onClick={() => router.push(`/product/${product._id}`)} className="flex items-center px-1.5 md:px-2 py-2 bg-blue-600 text-white rounded-md">
+                      <span className="hidden md:block"></span>
                       <Image
                         className="h-3.5"
                         src={assets.redirect_icon}
@@ -86,13 +87,30 @@ const ProductList = () => {
                       />
                     </button>
                   </td>
+                  <td className="px-4 py-3 max-sm:hidden">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => router.push(`/product/${product._id}`)}
+                        className="flex items-center px-1.5 md:px-2 py-2 bg-gray-100 text-gray-700 rounded-md"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => router.push(`/product/${product._id}`)}
+                        className="flex items-center px-1.5 md:px-2 py-2 bg-red-600 text-white rounded-md"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
