@@ -1,34 +1,6 @@
-// 'use client'
-// import { assets } from '@/assets/assets'
-// import { useAppContext } from '@/context/AppContext'
-// import Image from 'next/image'
-// import { useEffect } from 'react'
-
-// const OrderPlaced = () => {
-
-//   const { router, setCartItems } = useAppContext()
-
-//   useEffect(() => {
-//     setCartItems({})
-//     setTimeout(() => {
-//       router.push('/my-orders')
-//     }, 2000)
-//   }, [])
-
-//   return (
-//     <div className='h-screen flex flex-col justify-center items-center gap-5'>
-//       <div className="flex justify-center items-center relative">
-//         <Image className="absolute p-5" src={assets.checkmark} alt='' />
-//         <div className="animate-spin rounded-full h-24 w-24 border-4 border-t-green-300 border-gray-200"></div>
-//       </div>
-//       <div className="text-center text-2xl font-semibold">Order Placed Successfully</div>
-//     </div>
-//   )
-// }
-
-// export default OrderPlaced
-
 'use client'
+export const dynamic = 'force-dynamic';
+
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
@@ -48,7 +20,7 @@ const OrderPlaced = () => {
 
     const createOrderAfterPayment = async () => {
       try {
-        // Get Stripe session metadata
+
         const res = await fetch(`/api/payment/checkout-session?sessionId=${sessionId}`);
         const { metadata } = await res.json();
 
@@ -56,7 +28,7 @@ const OrderPlaced = () => {
 
         const token = await getToken();
 
-        // Send order create request to your existing endpoint
+
         const orderRes = await fetch('/api/order/create', {
           method: 'POST',
           headers: { 
