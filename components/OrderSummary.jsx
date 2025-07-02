@@ -18,7 +18,7 @@ const OrderSummary = () => {
     try {
       const token = await getToken()
       const { data } = await axios.get('/api/user/get-address', {headers: {Authorization: `Bearer ${token}`}})
-  
+
       if (data.success) {
         setUserAddresses(data.addresses)
         if (data.addresses.length > 0){
@@ -89,8 +89,7 @@ const OrderSummary = () => {
       const { data } = await axios.post("/api/payment/checkout", {
         items: cartItemsArray,
         addressId: selectedAddress._id,
-        // email: user.email,
-        email: 'mainaliayush070@gmail.com'
+        email: user.primaryEmailAddress.emailAddress,
       });
   
       if (data.url) {

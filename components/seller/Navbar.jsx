@@ -16,7 +16,7 @@ const Navbar = () => {
         src={companyLogo}
         alt="logo"
       />
-      <button onClick={() => router.push('/')} className='bg-gray-300 text-gray-600 px-5 py-2 sm:px-7 sm:py-2 rounded-lg text-xs sm:text-sm'>Return to Home</button>
+      <button onClick={() => router.push('/')} className="text-sm px-4 py-1.5 rounded-md border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition">Return to Home</button>
     </div>
   )
 }

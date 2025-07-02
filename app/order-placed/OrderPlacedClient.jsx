@@ -41,8 +41,8 @@ export default function OrderPlacedClient() {
 
         if (orderData.success) {
           setCartItems({});
+          setTimeout(() => router.push('/my-orders'), 2000);
           toast.success('Order placed successfully!');
-          setTimeout(() => router.push('/my-orders'), 3000);
         } else {
           toast.error(orderData.message || 'Failed to create order');
         }

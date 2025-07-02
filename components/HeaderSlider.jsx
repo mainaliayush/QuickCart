@@ -1,34 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const HeaderSlider = () => {
-  // const sliderData = [
-  //   {
-  //     id: 1,
-  //     title: "Experience Pure Sound - Your Perfect Headphones Awaits!",
-  //     offer: "Limited Time Offer 30% Off",
-  //     buttonText1: "Buy now",
-  //     buttonText2: "Find more",
-  //     imgSrc: assets.header_headphone_image,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Next-Level Gaming Starts Here - Discover PlayStation 5 Today!",
-  //     offer: "Hurry up only few lefts!",
-  //     buttonText1: "Shop Now",
-  //     buttonText2: "Explore Deals",
-  //     imgSrc: assets.header_playstation_image,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
-  //     offer: "Exclusive Deal 40% Off",
-  //     buttonText1: "Order Now",
-  //     buttonText2: "Learn More",
-  //     imgSrc: assets.header_macbook_image,
-  //   },
-  // ];
+
+  const router = useRouter();
 
   const sliderData = [
     {
@@ -37,7 +14,7 @@ const HeaderSlider = () => {
       offer: "Fast turnaround, bulk pricing available",
       buttonText1: "Browse RFID Cards",
       buttonText2: "Request a Quote",
-      imgSrc: assets.rfid_smartcard, 
+      imgSrc: assets.rfid_smartcard,
     },
     {
       id: 2,
@@ -90,10 +67,10 @@ const HeaderSlider = () => {
                 {slide.title}
               </h1>
               <div className="flex items-center gap-4 mt-6">
-                <button className="px-6 py-2 bg-blue-600 text-white font-medium rounded-md shadow hover:bg-blue-800 transition">
+                <button onClick={() => router.push('/all-products')} className="px-6 py-2 bg-blue-600 text-white font-medium rounded-md shadow hover:bg-blue-800 transition">
                   {slide.buttonText1}
                 </button>
-                <button className="group flex items-center gap-2 px-4 py-2 text- font-medium hover:underline">
+                <button  onClick={() => router.push('/all-products')} className="group flex items-center gap-2 px-4 py-2 text- font-medium hover:underline">
                   {slide.buttonText2}
                   <Image
                     className="group-hover:translate-x-1 transition-transform"

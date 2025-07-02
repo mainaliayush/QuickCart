@@ -18,11 +18,7 @@ const ProductList = () => {
   const fetchSellerProduct = async () => {
     try {
       const token = await getToken()
-      console.log("getToken: ", getToken)
-
       const { data } = await axios.get('/api/product/seller-list', {headers: {Authorization: `Bearer ${token}`}})
-
-      console.log("Data: ", data)
 
       if (data.success){
         setProducts(data.products)
@@ -54,7 +50,7 @@ const ProductList = () => {
                 <th className="px-4 py-3 font-medium truncate">
                   Price
                 </th>
-                <th className="px-4 py-3 font-medium truncate max-sm:hidden">Visit</th>
+                <th className="px-4 py-3 font-medium truncate max-sm:hidden">Link</th>
                 <th className="px-4 py-3 font-medium truncate max-sm:hidden">Update/Delete</th>
               </tr>
             </thead>
@@ -78,7 +74,7 @@ const ProductList = () => {
                   <td className="px-4 py-3 max-sm:hidden">{product.category}</td>
                   <td className="px-4 py-3">${product.offerPrice}</td>
                   <td className="px-4 py-3 max-sm:hidden">
-                    <button onClick={() => router.push(`/product/${product._id}`)} className="flex items-center px-1.5 md:px-2 py-2 bg-blue-600 text-white rounded-md">
+                    <button onClick={() => router.push(`/product/${product._id}`)} className="flex items-center px-1.5 md:px-2 py-2 bg-blue-400 text-white rounded-md">
                       <span className="hidden md:block"></span>
                       <Image
                         className="h-3.5"
@@ -91,15 +87,15 @@ const ProductList = () => {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => router.push(`/product/${product._id}`)}
-                        className="flex items-center px-1.5 md:px-2 py-2 bg-gray-100 text-gray-700 rounded-md"
+                        className="flex items-center px-2 py-1.5 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => router.push(`/product/${product._id}`)}
-                        className="flex items-center px-1.5 md:px-2 py-2 bg-red-600 text-white rounded-md"
+                        className="flex items-center px-2 py-1.5 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition"
                       >
-                        Delete
+                        Remove
                       </button>
                     </div>
                   </td>
